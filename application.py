@@ -115,6 +115,11 @@ def slow_endpoint():
 
     return result
 
+@app.route('/api/slow-endpoint')
+def slow_endpoint():
+    time.sleep(5)
+    return "This was a slow response after 5 seconds"
+
 @app.route("/api/portfolio/<portfolio_id>", methods=["DELETE"])
 def delete_portfolio(portfolio_id):
     return jsonify({"status": "success", "message": f"Portfolio {portfolio_id} deleted."})
@@ -143,9 +148,6 @@ def list_csv_reports():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/api/slow-endpoint')
-def slow_endpoint():
-    time.sleep(5)
-    return "This was a slow response after 5 seconds"
+
 
 # IMPORTANT: No app.run() when deploying to Azure Linux App Service
